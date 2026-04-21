@@ -1,0 +1,59 @@
+fetchJSON_comment98({
+  "productCommentSummary": {
+    "productId": 100012043978,
+    "commentCount": 4,
+    "goodCount": 3,
+    "poorCount": 1,
+    "averageScore": 4
+  },
+  "comments": [
+    {
+      "id": 100000001,
+      "guid": "guid-001",
+      "productId": 100012043978,
+      "content": "手机收到了，屏幕非常清晰，运行很流畅，电池续航也给力，非常满意这次购物！包装精致，物流也很快。",
+      "creationTime": "2024-02-14 10:11:23",
+      "score": 5,
+      "nickname": "user_alpha",
+      "userClientShow": "来自京东APP",
+      "userLevelName": "PLUS会员",
+      "usefulVoteCount": 12
+    },
+    {
+      "id": 100000002,
+      "guid": "guid-002",
+      "productId": 100012043978,
+      "content": "性价比不错，整体体验良好，只是充电稍微有点慢，但不影响日常使用，推荐购买。",
+      "creationTime": "2024-02-20 14:02:45",
+      "score": 4,
+      "nickname": "user_beta",
+      "userClientShow": "来自京东APP",
+      "userLevelName": "金牌会员",
+      "usefulVoteCount": 3
+    },
+    {
+      "id": 100000003,
+      "guid": "guid-003",
+      "productId": 100012043978,
+      "content": "用了一周就死机重启，客服态度差，申请退货一直拖延，非常失望，不推荐！",
+      "creationTime": "2024-03-01 09:45:10",
+      "score": 1,
+      "nickname": "user_gamma",
+      "userClientShow": "来自京东APP",
+      "userLevelName": "银牌会员",
+      "usefulVoteCount": 22
+    },
+    {
+      "id": 100000004,
+      "guid": "guid-004",
+      "productId": 100012043978,
+      "content": "外观漂亮，手感很棒，拍照效果也不错，值得购买！",
+      "creationTime": "2024-03-12 18:20:33",
+      "score": 5,
+      "nickname": "user_delta",
+      "userClientShow": "来自京东APP",
+      "userLevelName": "钻石会员",
+      "usefulVoteCount": 7
+    }
+  ]
+});

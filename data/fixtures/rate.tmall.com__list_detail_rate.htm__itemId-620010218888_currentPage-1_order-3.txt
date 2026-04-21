@@ -1,0 +1,30 @@
+{
+  "rateDetail": {
+    "rateList": [
+      {
+        "id": "tm-001",
+        "tradeId": "tr-001",
+        "rateContent": "包装很好，颜色漂亮，穿起来很合身，非常喜欢，物流也快，五星好评！",
+        "rateDate": "2024-02-18 11:22:01",
+        "displayUserNick": "tm_user_a",
+        "userVipLevel": "V3"
+      },
+      {
+        "id": "tm-002",
+        "tradeId": "tr-002",
+        "rateContent": "衣服质量一般，线头较多，还有明显色差，跟图片不符，有点失望。",
+        "rateDate": "2024-02-22 16:05:41",
+        "displayUserNick": "tm_user_b",
+        "userVipLevel": "V2"
+      },
+      {
+        "id": "tm-003",
+        "tradeId": "tr-003",
+        "rateContent": "布料舒适，做工精致，值得购买，商家服务态度也很赞。",
+        "rateDate": "2024-03-05 09:15:22",
+        "displayUserNick": "tm_user_c",
+        "userVipLevel": "V4"
+      }
+    ]
+  }
+}
