@@ -7,13 +7,21 @@ backend-agnostic.
 
 from __future__ import annotations
 
+from functools import lru_cache
+
 from ..config import get_settings
 from .base import ReviewStore
 from .mongo import MongoReviewStore
 from .postgres import PostgresReviewStore
 
 
+@lru_cache(maxsize=1)
 def get_store() -> ReviewStore:
+    """Return the process-wide storage adapter.
+
+    Cached so SQLAlchemy engine / MongoClient pools are reused across API
+    requests and pipeline runs instead of being rebuilt (and leaked) each call.
+    """
     settings = get_settings()
     if settings.storage_backend == "mongo":
         return MongoReviewStore(settings.mongo_uri, settings.mongo_db)
