@@ -1,0 +1,54 @@
+version: "3.9"
+
+# Local dev stack: Postgres + Mongo + Redis. Start with:
+#   docker compose up -d
+# Then in another shell:
+#   cp .env.example .env && pip install -e '.[dev]' && python scripts/load_fixtures.py
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: crp
+      POSTGRES_PASSWORD: crp
+      POSTGRES_DB: crp
+    ports: ["5432:5432"]
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U crp"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  mongo:
+    image: mongo:7
+    ports: ["27017:27017"]
+    volumes: ["mongodata:/data/db"]
+
+  redis:
+    image: redis:7-alpine
+    ports: ["6379:6379"]
+
+  worker:
+    build: .
+    command: celery -A cn_review_pipeline.tasks.celery_app:celery_app worker --loglevel=INFO --concurrency=2
+    env_file: .env
+    depends_on: [redis, postgres]
+
+  api:
+    build: .
+    command: uvicorn cn_review_pipeline.api.app:app --host 0.0.0.0 --port 8000
+    ports: ["8000:8000"]
+    env_file: .env
+    depends_on: [redis, postgres]
+
+  dashboard:
+    build: .
+    command: streamlit run src/cn_review_pipeline/dashboard/app.py --server.address 0.0.0.0 --server.port 8501
+    ports: ["8501:8501"]
+    env_file: .env
+    depends_on: [postgres]
+
+volumes:
+  pgdata:
+  mongodata:
