@@ -38,16 +38,18 @@ def _env(tmp_path, monkeypatch):
     # the function, not the submodule.
     import importlib
 
-    from cn_review_pipeline import config
+    from cn_review_pipeline import config, storage
     from cn_review_pipeline.analyzer import sentiment
 
     tokenize_mod = importlib.import_module("cn_review_pipeline.processor.tokenize")
 
     config.get_settings.cache_clear()
     sentiment.get_analyzer.cache_clear()
+    storage.get_store.cache_clear()
     tokenize_mod._load_stopwords.cache_clear()
     os.environ.pop("JIEBA_CACHE", None)
     yield
     config.get_settings.cache_clear()
     sentiment.get_analyzer.cache_clear()
+    storage.get_store.cache_clear()
     tokenize_mod._load_stopwords.cache_clear()

@@ -64,8 +64,10 @@ class RuleBasedSentimentAnalyzer:
                 score += text.count(term)
             for term in _NEGATIVE_TERMS:
                 score -= text.count(term)
-            # Negation: if any negation token appears near a positive hit, dampen.
-            if any(neg in text for neg in _NEGATION_TERMS):
+            # Negation only dampens positive signals ("不好", "没问题" etc.). Negative
+            # terms already capture their own negation, so applying it there would
+            # double-count (e.g. "不好" hits _NEGATIVE_TERMS AND contains "不").
+            if score > 0 and any(neg in text for neg in _NEGATION_TERMS):
                 score *= 0.5
             # Normalise by length so long gushing reviews don't dominate.
             denom = max(len(text) / 20, 1.0)
