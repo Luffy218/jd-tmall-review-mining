@@ -55,13 +55,15 @@ store.init_schema()
 
 
 @st.cache_data(ttl=60, show_spinner=False)
-def load_reviews(platform: str | None, product_id: str | None) -> pd.DataFrame:
+def load_reviews(
+    platform: str | None, product_id: str | None
+) -> tuple[pd.DataFrame, list[AnalyzedReview]]:
     rows = store.list_analyzed(
         platform=platform or None, product_id=product_id or None
     )
     if not rows:
-        return pd.DataFrame()
-    return pd.DataFrame([r.model_dump() for r in rows])
+        return pd.DataFrame(), []
+    return pd.DataFrame([r.model_dump() for r in rows]), rows
 
 
 with st.sidebar:
@@ -71,7 +73,7 @@ with st.sidebar:
     if st.button("Reload"):
         load_reviews.clear()
 
-df = load_reviews(platform or None, product_id or None)
+df, analyzed_objs = load_reviews(platform or None, product_id or None)
 
 if df.empty:
     st.info(
@@ -141,7 +143,6 @@ else:
 # --------------------------------------------------------------------------- insights
 
 st.subheader("Complaints vs strengths")
-analyzed_objs = [AnalyzedReview.model_validate(row) for row in df.to_dict("records")]
 ins = complaints_and_strengths(analyzed_objs)
 left, right = st.columns(2)
 left.markdown("**Strengths**")
